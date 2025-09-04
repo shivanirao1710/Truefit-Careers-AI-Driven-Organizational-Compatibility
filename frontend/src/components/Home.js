@@ -50,7 +50,7 @@ function Home() {
           Logout
         </button>
       </nav>
-<div className="welcome-message">{message}</div>
+<div className="welcome-message">{message}<p>Hi</p></div>
       {/* Hero Section */}
       <section className="hero">
         
