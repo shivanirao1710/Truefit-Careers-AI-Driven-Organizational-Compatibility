@@ -604,14 +604,7 @@ def job_details_api():
         print("Error fetching job details:", e)
         return jsonify({"error": "Failed to fetch job details"}), 500
 
-# @app.route("/api/job/<job_role>/<company_name>", methods=["GET"])
-# def job_details_api(job_role, company_name):
-#     job_data = get_job_data_from_postgresql()
-#     job = next((job for job in job_data if job['job_role'] == job_role and job['company_name'] == company_name), None)
-#     if job:
-#         return jsonify({"job": job}), 200
-#     else:
-#         return jsonify({"error": "Job not found"}), 404
+
     
 if __name__ == "__main__":
     app.run(debug=True)
