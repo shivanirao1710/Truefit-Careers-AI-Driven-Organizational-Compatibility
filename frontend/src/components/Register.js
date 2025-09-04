@@ -19,6 +19,8 @@ function Register() {
   };
 
   return (
+    <div>
+    <h1>Truefit Careers</h1>
     <div className="lr-container">
       <h2>Register</h2>
       <form onSubmit={handleRegister}>
@@ -37,6 +39,7 @@ function Register() {
         <button type="submit">Register</button>
       </form>
       <p>Already have an account? <Link to="/">Login</Link></p>
+    </div>
     </div>
   );
 }

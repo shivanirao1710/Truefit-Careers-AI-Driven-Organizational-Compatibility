@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './style.css';
+
 function ResumeAnalyzer() {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState("");
@@ -28,7 +29,6 @@ function ResumeAnalyzer() {
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             );
             setMessage(response.data.message);
-            // Navigate to the display page after successful upload
             navigate("/resume-display");
         } catch (err) {
             setMessage(err.response?.data?.error || "Error uploading resume.");
@@ -36,19 +36,25 @@ function ResumeAnalyzer() {
     };
 
     return (
-        <div className="container">
-            <h1>Upload Your Resume</h1>
-            <form onSubmit={handleUpload}>
-                <input type="file" onChange={handleFileChange} accept=".pdf,.doc,.docx" required />
-                
-                <button type="submit">Upload</button>
-            </form>
-            {message && <p style={{ marginTop: '10px' }}>{message}</p>}
-            
-            <button onClick={() => navigate('/resume-display')}>View My Resume</button>
-            
-            <button onClick={() => navigate('/home')}>Back to Home</button>
-        </div>
+        <section className="resume-section">
+            <div className="resume-card">
+                <h1>Upload Your Resume</h1>
+                <form onSubmit={handleUpload}>
+                    <input 
+                        type="file" 
+                        onChange={handleFileChange} 
+                        accept=".pdf,.doc,.docx" 
+                        required 
+                    />
+                    <button className="primary-btn" type="submit">Upload</button>
+                </form>
+
+                {message && <p className="resume-message">{message}</p>}
+
+                <button className="secondary-btn" onClick={() => navigate('/resume-display')}>View My Resume</button><br />
+                <button className="secondary-btn" onClick={() => navigate('/home')}>Back to Home</button>
+            </div>
+        </section>
     );
 }
 

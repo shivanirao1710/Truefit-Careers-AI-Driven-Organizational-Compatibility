@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './style.css';
+import "./style.css";
 
 function Profile() {
   const [profileData, setProfileData] = useState(null);
@@ -12,7 +12,7 @@ function Profile() {
     const fetchProfile = async () => {
       try {
         const res = await axios.get("http://localhost:5000/profile", {
-          withCredentials: true, // important for session cookies
+          withCredentials: true,
         });
         setProfileData(res.data.data);
       } catch (err) {
@@ -20,9 +20,7 @@ function Profile() {
           setError("Unauthorized. Please log in.");
           navigate("/login");
         } else {
-          setError(
-            err.response?.data?.error || "Failed to fetch profile data."
-          );
+          setError(err.response?.data?.error || "Failed to fetch profile data.");
         }
       }
     };
@@ -31,60 +29,33 @@ function Profile() {
   }, [navigate]);
 
   if (error) {
-    return (
-      <div className="p-6 text-red-600 text-center font-semibold">
-        {error}
-      </div>
-    );
+    return <div className="error-box">{error}</div>;
   }
 
   if (!profileData) {
-    return (
-      <div className="p-6 text-gray-600 text-center">Loading profile...</div>
-    );
+    return <div className="loading-box">Loading profile...</div>;
   }
 
   return (
-    <div className="container">
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-md">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">My Profile</h1>
-      <div className="space-y-4">
-        <p>
-          <span className="font-semibold">Name:</span> {profileData.name}
-        </p>
-        <p>
-          <span className="font-semibold">Email:</span> {profileData.email}
-        </p>
-        <p>
-          <span className="font-semibold">Phone:</span> {profileData.phone}
-        </p>
-        <p>
-          <span className="font-semibold">Skills:</span> {profileData.skills}
-        </p>
-        <p>
-          <span className="font-semibold">Experience:</span>{" "}
-          {profileData.experience || "N/A"}
-        </p>
-        <p>
-          <span className="font-semibold">Education:</span>{" "}
-          {profileData.education || "N/A"}
-        </p>
-        <p>
-          <span className="font-semibold">Projects:</span>{" "}
-          {profileData.projects || "N/A"}
-        </p>
-        <p>
-          <span className="font-semibold">Behavioral Tag:</span>{" "}
-          {profileData.behavioral_tag || "Not assigned yet"}
-        </p>
-        <p>
-          <span className="font-semibold">Insights:</span>{" "}
-          {profileData.insights}
-        </p>
-        <button onClick={() => navigate('/home')}>Back to Home</button>
+    <section className="profile-section">
+      <div className="profile-card">
+        <h1 className="profile-title">My Profile</h1>
+        <div className="profile-details">
+          <p><span>Name:</span> {profileData.name}</p>
+          <p><span>Email:</span> {profileData.email}</p>
+          <p><span>Phone:</span> {profileData.phone}</p>
+          <p><span>Skills:</span> {profileData.skills}</p>
+          <p><span>Experience:</span> {profileData.experience || "N/A"}</p>
+          <p><span>Education:</span> {profileData.education || "N/A"}</p>
+          <p><span>Projects:</span> {profileData.projects || "N/A"}</p>
+          <p><span>Behavioral Tag:</span> {profileData.behavioral_tag || "Not assigned yet"}</p>
+          <p><span>Insights:</span> {profileData.insights}</p>
+        </div>
+        <button className="secondary-btn" onClick={() => navigate("/home")}>
+          Back to Home
+        </button>
       </div>
-    </div>
-    </div>
+    </section>
   );
 }
 
