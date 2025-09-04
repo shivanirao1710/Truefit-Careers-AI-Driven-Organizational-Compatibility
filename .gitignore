@@ -1,0 +1,63 @@
+# Root-level ignores (optional OS files)
+.DS_Store
+Thumbs.db
+
+# Node / React frontend
+/frontend/node_modules/
+/frontend/build/
+/frontend/.env
+/frontend/.DS_Store
+/frontend/.parcel-cache
+/frontend/dist/
+/frontend/npm-debug.log
+/frontend/yarn-error.log
+/frontend/.next/
+/frontend/.turbo/
+
+# Python backend
+/backend/__pycache__/
+/backend/*.pyc
+/backend/*.pyo
+/backend/*.pyd
+/backend/env/
+/backend/venv/
+/backend/.env
+/backend/.DS_Store
+/backend/.mypy_cache/
+/backend/.pytest_cache/
+/backend/.vscode/
+/backend/instance/
+
+# General Python cache
+**/__pycache__/
+**/*.py[cod]
+**/*.so
+
+# Virtual environments (just in case)
+env/
+venv/
+ENV/
+
+# VS Code settings (if you don't want to share them)
+.vscode/
+
+# System files
+*.swp
+*.swo
+.idea/
+*.log
+
+# Coverage and test results
+htmlcov/
+.coverage
+coverage.xml
+.cache/
+.pytest_cache/
+
+# Mac-specific
+.AppleDouble
+.LSOverride
+
+# Env files (if you have any at root)
+.env
+.env.*
