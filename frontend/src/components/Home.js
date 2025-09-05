@@ -43,7 +43,7 @@ function Home() {
           <li onClick={() => navigate("/home")}>Home</li>
           <li onClick={scrollToAbout}>About</li>
           <li onClick={() => navigate("/profile")}>Profile</li>
-          <li onClick={() => alert("Chatbot clicked")}>Chatbot</li>
+          <li onClick={() => navigate("/chatbot")}>Chatbot</li>
           <li onClick={() => alert("Sections clicked")}>Sections</li>
         </ul>
         <button className="logout-btn" onClick={handleLogout}>
@@ -196,7 +196,7 @@ function Home() {
       </p>
       <button
         className="secondary-btn"
-        onClick={() => alert("Chatbot clicked")}
+        onClick={() => navigate("/chatbot")}
       >
         Chat Now
       </button>

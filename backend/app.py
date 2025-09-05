@@ -5,11 +5,12 @@ from flask_bcrypt import Bcrypt
 import PyPDF2
 import docx
 import re
-from transformers import pipeline
+from transformers import pipeline,GPT2Tokenizer, GPT2LMHeadModel
 import pickle
 from psycopg2.extras import DictCursor
 import json, numpy as np, faiss
 from sentence_transformers import SentenceTransformer
+
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -604,6 +605,121 @@ def job_details_api():
         print("Error fetching job details:", e)
         return jsonify({"error": "Failed to fetch job details"}), 500
 
+def get_user_name():
+    """Fetch logged-in user's name from resumes table"""
+    user_id = session.get("user_id")  # assume user_id stored in session
+
+    if not user_id:
+        return "there"  # fallback if no login
+
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT name FROM resumes WHERE user_id = %s LIMIT 1;", (user_id,))
+            result = cursor.fetchone()
+            return result[0] if result else "there"
+    except Exception as e:
+        print("Error fetching name:", e)
+        return "there"
+    finally:
+        conn.close()
+
+# ==============================
+# 4. GPT MODELS
+# ==============================
+gpt_tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+gpt_model = GPT2LMHeadModel.from_pretrained("gpt2")
+
+# Hugging Face DialoGPT pipeline
+chatbot = pipeline("text-generation", model="microsoft/DialoGPT-medium")
+
+# ==============================
+# 5. GRAMMAR FIX + SHORT RESPONSES
+# ==============================
+def correct_grammar_and_generate_response(text):
+    """Fix grammar using GPT-2 and generate short, meaningful responses."""
+    inputs = gpt_tokenizer.encode(text, return_tensors="pt")
+
+    outputs = gpt_model.generate(
+        inputs,
+        max_new_tokens=30,
+        num_return_sequences=1,
+        no_repeat_ngram_size=2,
+        top_p=0.85,
+        temperature=0.6
+    )
+
+    generated_response = gpt_tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    # keep only first sentence
+    cleaned_response = re.split(r"[.!?]", generated_response)[0].strip() + "."
+
+    return cleaned_response
+
+@app.route("/chatbot", methods=["POST"])
+def chatbot_route():
+    user_name = get_user_name()
+    user_input = request.json.get("user_input", "").strip()
+
+    if not user_input:
+        return jsonify({
+            "response": f"Hello {user_name}, please ask me something!",
+            "user_name": user_name
+        })
+
+    job_info = get_job_data_from_postgresql()
+    response = ""
+
+    # ✅ Skills query
+    match = re.search(r"(?:skills needed for|skills for|technology required for)\s+(.+)", user_input, re.IGNORECASE)
+    if match:
+        job_role = match.group(1).strip()
+        matching_jobs = [job for job in job_info if job_role.lower() in job["job_role"].lower()]
+
+        if matching_jobs:
+            response = f"Here are the key skills needed for **{job_role}**, {user_name}:\n\n"
+            response += "\n".join(
+                f"- **{job['job_role']}** at {job['company_name']} (Skills: {job['skills_cleaned']})"
+                for job in matching_jobs[:3]
+            )
+        else:
+            response = f"Sorry, {user_name}, I couldn't find skills for **'{job_role}'**."
+
+    # ✅ Job roles query
+    elif re.search(r"(?:job roles for|roles for|positions for|careers in)\s+(.+)", user_input, re.IGNORECASE):
+        job_role = re.search(r"(?:job roles for|roles for|positions for|careers in)\s+(.+)", user_input, re.IGNORECASE).group(1).strip()
+        matching_jobs = [job for job in job_info if job_role.lower() in job["job_role"].lower()]
+
+        if matching_jobs:
+            response = f"Here are some job roles related to **{job_role}**, {user_name}:\n\n"
+            response += "\n".join(
+                f"- **{job['job_role']}** at {job['company_name']} (Skills: {job['skills_cleaned']})"
+                for job in matching_jobs[:3]
+            )
+        else:
+            response = f"Sorry, {user_name}, I couldn't find roles for **'{job_role}'**."
+
+    # ✅ Jobs at company query
+    elif re.search(r"jobs at\s+(.+)", user_input, re.IGNORECASE):
+        company_name = re.search(r"jobs at\s+(.+)", user_input, re.IGNORECASE).group(1).strip()
+        matching_jobs = [job for job in job_info if company_name.lower() in job["company_name"].lower()]
+
+        if matching_jobs:
+            response = f"Here are some job roles available at **{company_name}**, {user_name}:\n\n"
+            response += "\n".join(
+                f"- **{job['job_role']}** (Skills: {job['skills_cleaned']})"
+                for job in matching_jobs[:3]
+            )
+        else:
+            response = f"Sorry, {user_name}, I couldn't find any jobs at **{company_name}**."
+
+    # ✅ General queries → GPT
+    else:
+        corrected_input = correct_grammar_and_generate_response(user_input)
+        bot_response = chatbot(corrected_input, max_new_tokens=50, pad_token_id=gpt_tokenizer.eos_token_id)[0]["generated_text"]
+        response = re.split(r"[\n]", bot_response)[0].strip()
+
+    return jsonify({"response": response, "user_name": user_name})
 
     
 if __name__ == "__main__":
