@@ -63,3 +63,5 @@ coverage.xml
 .env.*
 
 models/
+
+/backend/emotion_model.pt
