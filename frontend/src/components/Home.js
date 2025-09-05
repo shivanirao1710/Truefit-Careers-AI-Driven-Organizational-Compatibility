@@ -17,39 +17,25 @@ function Home() {
       .catch(() => navigate("/")); // Redirect to login if unauthorized
   }, [navigate]);
 
-  const handleLogout = async () => {
-    try {
-      await axios.post("http://localhost:5000/logout");
-      navigate("/");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.post("http://localhost:5000/logout");
+  //     navigate("/");
+  //   } catch (err) {
+  //     console.error("Logout failed:", err);
+  //   }
+  // };
 
-  const scrollToAbout = () => {
-    if (aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // const scrollToAbout = () => {
+  //   if (aboutRef.current) {
+  //     aboutRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
 
   return (
     <div className="home-container">
       {/* Navbar */}
-      <nav className="navbar">
-        <div className="nav-left">
-          <img src={logo} alt="TrueFit Careers Logo" className="nav-logo" />
-        </div>
-        <ul className="nav-links">
-          <li onClick={() => navigate("/home")}>Home</li>
-          <li onClick={scrollToAbout}>About</li>
-          <li onClick={() => navigate("/profile")}>Profile</li>
-          <li onClick={() => navigate("/chatbot")}>Chatbot</li>
-          <li onClick={() => alert("Sections clicked")}>Sections</li>
-        </ul>
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-      </nav>
+      
 <div className="welcome-message">{message}</div>
       {/* Hero Section */}
       <section className="hero">
@@ -260,7 +246,7 @@ function Home() {
 
 {/* About Us Section */}
 <section ref={aboutRef} className="about-section">
-  <div className="about-inner">
+  <div id="about" className="about-inner">
     <h1 className="about-title">Our Purpose</h1>
     <p>
       At TrueFit Careers, we believe every student holds untapped potential. 
