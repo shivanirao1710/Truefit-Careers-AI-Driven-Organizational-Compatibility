@@ -10,6 +10,7 @@ import BehaviourTest from "./components/BehaviourTest"; // New
 import PersonalityResult from "./components/PersonalityResult"; // New
 import JobSearch from "./components/JobSearch";             // Job search page
 import JobDetails from "./components/JobDetails";
+import Chatbot from "./components/Chatbot";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
@@ -27,7 +28,8 @@ function App() {
         <Route path="/behaviour" element={<BehaviourTest />} /> {/* Behaviour Test Page */}
         <Route path="/result" element={<PersonalityResult />} /> {/* Result Page */}
         <Route path="/search" element={<JobSearch />} />
-         <Route path="/job/:job_role/:company_name" element={<JobDetails />} />
+        <Route path="/job/:job_role/:company_name" element={<JobDetails />} />
+        <Route path="/chatbot" element={<Chatbot />} /> 
       </Routes>
     </Router>
   );
