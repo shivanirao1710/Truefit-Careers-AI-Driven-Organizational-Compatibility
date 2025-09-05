@@ -16,7 +16,6 @@ function InterviewDashboard() {
 
   const viewResults = () => navigate("/interview-results");
   const viewReport = () => navigate("/interview-report");
-  const goHome = () => navigate("/");
 
   return (
     <div className="upload-form">
@@ -30,7 +29,9 @@ function InterviewDashboard() {
         <button onClick={viewReport}>View Soft Skill Report</button>
       </div>
 
-      <button onClick={goHome} className="btn">Back to Home</button>
+      <button className="btn" onClick={() => navigate("/home")}>
+        Back to Home
+      </button>
     </div>
   );
 }
