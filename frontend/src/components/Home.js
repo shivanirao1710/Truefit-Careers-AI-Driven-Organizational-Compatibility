@@ -246,7 +246,7 @@ function Home() {
       </ul>
       <button
         className="secondary-btn"
-        onClick={() => alert("Mock AI Interview clicked")}
+        onClick={() => navigate("/interview-dashboard")}
       >
         Take Interview
       </button>

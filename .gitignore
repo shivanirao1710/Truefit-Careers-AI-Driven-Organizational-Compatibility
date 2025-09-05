@@ -61,3 +61,7 @@ coverage.xml
 # Env files (if you have any at root)
 .env
 .env.*
+
+models/
+
+/backend/emotion_model.pt
