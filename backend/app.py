@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, redirect, url_for
 import psycopg2
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -10,7 +10,10 @@ import pickle
 from psycopg2.extras import DictCursor
 import json, numpy as np, faiss
 from sentence_transformers import SentenceTransformer
-
+import os
+import subprocess
+import signal
+import time
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -721,6 +724,193 @@ def chatbot_route():
 
     return jsonify({"response": response, "user_name": user_name})
 
+
+
+@app.route('/start-interview', methods=['POST'])
+def start_interview():
+    if 'user_id' not in session:
+        return jsonify({"error": "Not logged in"}), 401
+
+    # Fetch actual name from DB (your helper)
+    username = get_user_name()
+    if not username:
+        return jsonify({"error": "No username found"}), 400
+
+    env = os.environ.copy()
+    env['LOGGED_IN_USER'] = username  # Pass logged-in user's name
+
+    try:
+        # Start the live_interview.py process
+        process = subprocess.Popen(["python", "interview/live_interview.py"], env=env)
+        session['interview_pid'] = process.pid
+        print(f"▶️ Started live_interview.py for {username} (PID={process.pid})")
+    except Exception as e:
+        return jsonify({"error": f"Failed to start interview: {str(e)}"}), 500
+
+    return jsonify({
+        "message": f"Interview started for {username}",
+        "username": username
+    })
+
+
+# -------------------------
+# Get Questions
+# -------------------------
+@app.route('/get-questions', methods=['GET'])
+def getquestions():
+    if 'user_id' not in session:
+        return jsonify({"error": "Not logged in"}), 401
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, question FROM interview_questions")
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    return jsonify({"questions": [{"id": r[0], "question": r[1]} for r in rows]})
+
+
+# -------------------------
+# Submit Interview
+# -------------------------
+@app.route('/submit-interview', methods=['POST'])
+def submit_interview():
+    if 'user_id' not in session:
+        return jsonify({"error": "Not logged in"}), 401
+
+    try:
+        data = request.json
+        answers = data.get("answers", {})
+
+        username = get_user_name()
+        if not username:
+            return jsonify({"error": "No username found"}), 400
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # Delete old answers for this user
+        cur.execute("DELETE FROM interview_answers WHERE username = %s", (username,))
+
+        # Insert new answers
+        for question_id, answer in answers.items():
+            cur.execute("""
+                INSERT INTO interview_answers (question, answer, username)
+                SELECT question, %s, %s FROM interview_questions WHERE id = %s
+            """, (answer, username, question_id))
+
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        # Kill the live interview process if running
+        pid = session.get("interview_pid")
+        if pid:
+            try:
+                os.kill(pid, signal.SIGTERM)
+                print(f"🛑 Stopped live_interview.py (PID={pid})")
+                session.pop("interview_pid", None)
+            except ProcessLookupError:
+                print(f"⚠️ No process found with PID={pid}")
+                session.pop("interview_pid", None)
+
+        return jsonify({"message": "Interview submitted successfully", "answers": answers})
+
+    except Exception as e:
+        print(f"❌ Error in submit_interview: {e}")
+        return jsonify({"error": f"Submit failed: {str(e)}"}), 500
+
+# -------------------------
+# Results Data
+# -------------------------
+@app.route('/results-data', methods=['GET'])
+def results_data():
+    if 'user_id' not in session:
+        return jsonify({"error": "Not logged in"}), 401
+
+    # use the correct helper function
+    username = get_user_name()
+    if not username:
+        return jsonify({"error": "No username found"}), 400
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    try:
+        # Fetch emotions
+        cur.execute("""
+            SELECT timestamp, emotion 
+            FROM emotion_logs 
+            WHERE username = %s 
+            ORDER BY id
+        """, (username,))
+        emotions = [{"timestamp": e[0], "emotion": e[1]} for e in cur.fetchall()]
+
+        # Fetch interview answers
+        cur.execute("""
+            SELECT question, answer 
+            FROM interview_answers 
+            WHERE username = %s 
+            ORDER BY id
+        """, (username,))
+        answers = [{"question": a[0], "answer": a[1]} for a in cur.fetchall()]
+
+        return jsonify({"emotions": emotions, "answers": answers})
+
+    except Exception as e:
+        print(f"❌ Error in /results-data: {e}")
+        return jsonify({"error": "Failed to fetch results"}), 500
+    finally:
+        cur.close()
+        conn.close()
+
+@app.route('/generate-report', methods=['POST'])
+def generate_report():
+    # Call the new function to get the username
+    username = get_user_name()
+    if not username:
+        return jsonify({'error': 'Username not found'}), 400
+
+    # Set username in environment variable for subprocess
+    env = os.environ.copy()
+    env['LOGGED_IN_USER'] = username
+
+    # Run the report generator script and wait for it to complete
+    try:
+        result = subprocess.run(["python", "generate_report.py"], env=env, capture_output=True, text=True, check=True)
+        print("Subprocess stdout:", result.stdout)
+        print("Subprocess stderr:", result.stderr)
+        return jsonify({'status': 'Report generation complete'}), 200
+    except subprocess.CalledProcessError as e:
+        print(f"Error running generate_report.py: {e.stderr}")
+        return jsonify({'error': 'Report generation failed'}), 500
+
+@app.route('/report-data')
+def get_report_data():
+    # Call the new function to get the username
+    username = get_user_name()
+    if not username:
+        return jsonify({'error': 'Username not found'}), 400
+
+    conn = get_db_connection()
+    if conn is None:
+        return jsonify({'error': 'Database connection failed'}), 500
     
+    cur = conn.cursor()
+    try:
+        cur.execute("SELECT question, answer, analysis FROM soft_skill_analysis WHERE username = %s", (username,))
+        report_data = cur.fetchall()
+        report = [{'question': r[0], 'answer': r[1], 'analysis': r[2]} for r in report_data]
+        return jsonify({'report': report}), 200
+    except Exception as e:
+        print(f"Error fetching report data: {e}")
+        return jsonify({'error': 'Failed to fetch report data'}), 500
+    finally:
+        cur.close()
+        conn.close()
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

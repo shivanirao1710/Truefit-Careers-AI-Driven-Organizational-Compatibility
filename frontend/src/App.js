@@ -11,6 +11,10 @@ import PersonalityResult from "./components/PersonalityResult"; // New
 import JobSearch from "./components/JobSearch";             // Job search page
 import JobDetails from "./components/JobDetails";
 import Chatbot from "./components/Chatbot";
+import InterviewDashboard from "./components/InterviewDashboard";
+import Interview from "./components/Interview";
+import InterviewResults from "./components/InterviewResults";
+import InterviewReport from "./components/InterviewReport";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
@@ -30,6 +34,10 @@ function App() {
         <Route path="/search" element={<JobSearch />} />
         <Route path="/job/:job_role/:company_name" element={<JobDetails />} />
         <Route path="/chatbot" element={<Chatbot />} /> 
+        <Route path="/interview-dashboard" element={<InterviewDashboard />} />
+        <Route path="/interview" element={<Interview />} />
+        <Route path="/interview-results" element={<InterviewResults />} />
+        <Route path="/interview-report" element={<InterviewReport />} />
       </Routes>
     </Router>
   );

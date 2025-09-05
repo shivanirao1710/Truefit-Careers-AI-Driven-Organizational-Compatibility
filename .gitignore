@@ -61,3 +61,5 @@ coverage.xml
 # Env files (if you have any at root)
 .env
 .env.*
+
+models/
