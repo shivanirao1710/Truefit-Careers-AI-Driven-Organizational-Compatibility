@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import './InterviewDashboard.css';
 function InterviewDashboard() {
   const navigate = useNavigate();
 

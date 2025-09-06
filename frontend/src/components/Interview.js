@@ -64,6 +64,9 @@ function Interview() {
         ))}
         <div style={{ textAlign: "center", marginTop: "20px" }}>
           <button type="submit">Submit Answers</button>
+         <button onClick={() => navigate("/interview-dashboard")} className="btn">
+        Back to Interview Dashboard
+      </button>
         </div>
       </form>
     </div>

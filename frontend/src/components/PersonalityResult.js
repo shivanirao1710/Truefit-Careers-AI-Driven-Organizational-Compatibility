@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './style.css';
+import './PersonalityResult.css';
 const PersonalityResult = () => {
   const [scores, setScores] = useState(null);
   const [behavioralTag, setBehavioralTag] = useState("");
