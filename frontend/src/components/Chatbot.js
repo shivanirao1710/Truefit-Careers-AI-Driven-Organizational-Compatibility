@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
+import './Chatbot.css';
 
 function Chatbot() {
   const [userInput, setUserInput] = useState("");

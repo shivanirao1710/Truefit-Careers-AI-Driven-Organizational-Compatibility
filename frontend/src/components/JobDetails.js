@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import './style.css';
+import './JobDetails.css'; // Correctly import the CSS file
+
 const JobDetails = () => {
   const { job_role, company_name } = useParams();
   const decodedJobRole = decodeURIComponent(job_role);
@@ -35,21 +36,55 @@ const JobDetails = () => {
     fetchJobDetails();
   }, [decodedJobRole, decodedCompanyName]);
 
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!job) return <p>Loading job details...</p>;
+  if (error) {
+    return (
+      <div className="container">
+        <p className="error-text">{error}</p>
+        <button onClick={() => navigate("/search")} className="back-button">
+          Back to Search
+        </button>
+      </div>
+    );
+  }
+
+  if (!job) {
+    return <p className="loading-text">Loading job details...</p>;
+  }
 
   return (
-    <div className="container">
-      <h1>{job.job_role}</h1>
-      <h3>{job.company_name}</h3>
-      <p><strong>Company Type:</strong> {job.company_type}</p>
-      <p><strong>Required Knowledge:</strong> {job.knowledge_cleaned}</p>
-      <p><strong>Skills:</strong> {job.skills_cleaned}</p>
-      <p><strong>Combined Features:</strong> {job.combined_features}</p>
-      <button onClick={() => navigate("/search")} className="btn">
-        Back to Search
-      </button>
-    </div>
+    <>
+  
+
+      {/* Main Content Container */}
+      <div className="details-container">
+        <h1 className="job-title">{job.job_role}</h1>
+        <h3 className="company-name">{job.company_name}</h3>
+
+        <div className="details-section">
+          <strong>Company Type:</strong>
+          <p>{job.company_type}</p>
+        </div>
+        
+        <div className="details-section">
+          <strong>Required Knowledge:</strong>
+          <p>{job.knowledge_cleaned}</p>
+        </div>
+
+        <div className="details-section">
+          <strong>Skills:</strong>
+          <p>{job.skills_cleaned}</p>
+        </div>
+
+        <div className="details-section">
+          <strong>Combined Features:</strong>
+          <p>{job.combined_features}</p>
+        </div>
+
+        <button onClick={() => navigate("/search")} className="back-button">
+          Back to Search
+        </button>
+      </div>
+    </>
   );
 };
 

@@ -1,0 +1,202 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #e0f7fa; /* Very light cyan background */
+    color: #4a4a4a; /* Slightly darker gray text for readability */
+    margin: 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #1f3a93; /* A deeper, darker blue for the navbar */
+    color: #fff;
+    border-bottom: 3px solid #ff6f61; /* Bright orange accent */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: #c9e6ff; /* A lighter shade for nav links */
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 25px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff; /* White background for the content area */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+}
+
+/* Page Heading */
+h1 {
+    text-align: center;
+    color: #1f3a93; /* Matches the new header color */
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+/* Job Search Form */
+.job-search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 25px;
+    font-weight: 500;
+    color: #555;
+}
+
+.radio-group label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 8px;
+    accent-color: #007bff; /* Blue accent */
+    transform: scale(1.2);
+}
+
+.search-input-group {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-input-group input {
+    flex-grow: 1;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-input-group button {
+    background-color: #007bff; /* Blue button */
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.search-input-group button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Info, Error, and Loading messages */
+.info-text, .error-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.error-text {
+    color: #dc3545; /* Red for errors */
+}
+
+/* Back to Home Button */
+.back-home-button {
+    display: block;
+    width: fit-content;
+    margin: 30px auto 0;
+    padding: 12px 25px;
+    background-color: #8c8c8c; /* A new gray color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.back-home-button:hover {
+    background-color: #7a7a7a;
+}
+
+/* --- Styles for the main job recommendations grid --- */
+.recommendations {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* --- Styles for the individual job cards --- */
+.job-card {
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.job-card:nth-child(odd) {
+  background: #f0f8ff; /* Alice Blue */
+  border-left: 6px solid #4682b4; /* Steel Blue */
+}
+
+.job-card:nth-child(even) {
+  background: #fffafa; /* Snow */
+  border-left: 6px solid #dc143c; /* Crimson Red */
+}
+
+.job-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #1f3a93;
+}
+
+.job-card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.job-card strong {
+    font-weight: 600;
+    color: #333;
+}

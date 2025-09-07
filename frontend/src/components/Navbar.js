@@ -13,7 +13,7 @@ function Navbar({ scrollToAbout, handleLogout }) {
 
       <ul className="nav-links">
         <li onClick={() => navigate("/home")}>Home</li>
-        <li onClick={() => navigate("/home#about")}>About</li>
+        <li onClick={() => navigate("/home#about")}>About us</li>
         <li onClick={() => navigate("/profile")}>Profile</li>
         <li onClick={() => navigate("/chatbot")}>Chatbot</li>
         <li onClick={() => alert("Sections clicked")}>Sections</li>
