@@ -17,7 +17,7 @@ if not USERNAME:
 logging.info(f"🔹 Generating soft skill report for user: {USERNAME}")
 
 # === Load GGUF model ===
-MODEL_PATH = "./models/Meta-Llama-3-8B-Instruct.Q4_K_M.gguf"  # Ensure this file exists
+MODEL_PATH = "./models/Meta-Llama-3-8B-Instruct-Q4_K_M.gguf"  # Ensure this file exists
 
 try:
     llm = Llama(

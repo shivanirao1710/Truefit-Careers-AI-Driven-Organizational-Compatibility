@@ -867,50 +867,51 @@ def results_data():
 
 @app.route('/generate-report', methods=['POST'])
 def generate_report():
-    # Call the new function to get the username
-    username = get_user_name()
-    if not username:
-        return jsonify({'error': 'Username not found'}), 400
+    if 'user_id' not in session:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    username = get_user_name()  # ✅ use your helper function
+    if not username or username == "there":
+        return jsonify({"error": "Username not found"}), 401
 
     # Set username in environment variable for subprocess
     env = os.environ.copy()
     env['LOGGED_IN_USER'] = username
 
-    # Run the report generator script and wait for it to complete
     try:
-        result = subprocess.run(["python", "generate_report.py"], env=env, capture_output=True, text=True, check=True)
-        print("Subprocess stdout:", result.stdout)
-        print("Subprocess stderr:", result.stderr)
-        return jsonify({'status': 'Report generation complete'}), 200
+        # Run the report generator script
+        subprocess.run(["python", "generate_report.py"], env=env, check=True)
+        return jsonify({"status": "success", "message": "Report generated successfully"})
     except subprocess.CalledProcessError as e:
-        print(f"Error running generate_report.py: {e.stderr}")
-        return jsonify({'error': 'Report generation failed'}), 500
+        return jsonify({
+            "status": "error",
+            "message": "Report generation failed",
+            "details": str(e)
+        }), 500
+@app.route('/interview-report', methods=['GET'])
+def interview_report():
+    if 'user_id' not in session:
+        return jsonify({"error": "Unauthorized"}), 401
 
-@app.route('/report-data')
-def get_report_data():
-    # Call the new function to get the username
-    username = get_user_name()
-    if not username:
-        return jsonify({'error': 'Username not found'}), 400
+    username = get_user_name()  # ✅ use your helper function
+    if not username or username == "there":
+        return jsonify({"error": "Username not found"}), 401
 
     conn = get_db_connection()
-    if conn is None:
-        return jsonify({'error': 'Database connection failed'}), 500
-    
     cur = conn.cursor()
-    try:
-        cur.execute("SELECT question, answer, analysis FROM soft_skill_analysis WHERE username = %s", (username,))
-        report_data = cur.fetchall()
-        report = [{'question': r[0], 'answer': r[1], 'analysis': r[2]} for r in report_data]
-        return jsonify({'report': report}), 200
-    except Exception as e:
-        print(f"Error fetching report data: {e}")
-        return jsonify({'error': 'Failed to fetch report data'}), 500
-    finally:
-        cur.close()
-        conn.close()
+    cur.execute(
+        "SELECT question, answer, analysis FROM soft_skill_analysis WHERE username = %s",
+        (username,)
+    )
+    rows = cur.fetchall()
+    conn.close()
 
-
+    return jsonify({
+        "username": username,
+        "report": [
+            {"question": r[0], "answer": r[1], "analysis": r[2]} for r in rows
+        ]
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,59 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function InterviewReport() {
   const [report, setReport] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchReport = async () => {
-      try {
-        // Fetch the report data from the new endpoint
-        const res = await axios.get("http://localhost:5000/report-data");
-        setReport(res.data.report || []);
-      } catch (err) {
-        console.error("Error fetching report:", err);
-        setError("Failed to load report data.");
-      } finally {
-        setLoading(false);
+  // Fetch interview report
+  const fetchReport = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("http://localhost:5000/interview-report", {
+        withCredentials: true, // ✅ send session cookie
+      });
+      if (res.data && res.data.report) {
+        setReport(res.data.report);
+      } else {
+        setMessage("No report found.");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching report:", error);
+      setMessage("Failed to fetch report.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchReport();
   }, []);
 
-  if (loading) {
-    return <div className="report-container"><p>Generating report, please wait...</p></div>;
-  }
-
-  if (error) {
-    return <div className="report-container"><p className="error-message">{error}</p></div>;
-  }
-
   return (
-    <div className="report-container">
-      <div className="header">
-        <h2>🧠 Soft Skill Analysis Report</h2>
+    <div className="report-container" style={styles.container}>
+      <h2 style={styles.heading}>Interview Report</h2>
+      {loading && <p>Loading...</p>}
+      {message && <p style={styles.message}>{message}</p>}
+
+      <div style={styles.reportBox}>
+        {report.length > 0 ? (
+          report.map((item, index) => (
+            <div key={index} style={styles.card}>
+              <p>
+                <strong>Q:</strong> {item.question}
+              </p>
+              <p>
+                <strong>A:</strong> {item.answer}
+              </p>
+              <p>
+                <strong>Analysis:</strong> {item.analysis}
+              </p>
+            </div>
+          ))
+        ) : (
+          !loading && <p>No report available.</p>
+        )}
       </div>
-
-      {report.length > 0 ? (
-        report.map((item, i) => (
-          <div key={i} className="report-card">
-            <p><strong>🗨️ Question:</strong></p>
-            <p className="question">{item.question}</p>
-
-            <p><strong>🎤 Answer:</strong></p>
-            <p className="answer">{item.answer}</p>
-
-            <p><strong>📈 Analysis:</strong></p>
-            <p className="analysis">{item.analysis}</p>
-          </div>
-        ))
-      ) : (
-        <p>No report data available. Please generate a report first.</p>
-      )}
 
       <button onClick={() => navigate("/interview-dashboard")} className="btn">
         Back to Interview Dashboard
@@ -61,5 +64,23 @@ function InterviewReport() {
     </div>
   );
 }
+
+const styles = {
+  container: { padding: "20px", maxWidth: "800px", margin: "0 auto" },
+  heading: { fontSize: "24px", fontWeight: "bold", marginBottom: "20px" },
+  message: { margin: "10px 0", color: "green", fontWeight: "500" },
+  reportBox: {
+    marginTop: "20px",
+    background: "#f9f9f9",
+    padding: "15px",
+    borderRadius: "10px",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+  },
+  card: {
+    borderBottom: "1px solid #ddd",
+    paddingBottom: "10px",
+    marginBottom: "10px",
+  },
+};
 
 export default InterviewReport;
