@@ -6,12 +6,16 @@ function InterviewResults() {
   const [emotions, setEmotions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/results-data");
+        const res = await axios.get("http://localhost:5000/results-data", {
+          withCredentials: true,
+        });
         setEmotions(res.data.emotions || []);
         setAnswers(res.data.answers || []);
       } catch (err) {
@@ -22,16 +26,20 @@ function InterviewResults() {
   }, []);
 
   const generateReport = async () => {
+    setLoading(true);
+    setMessage("Analyzing answers, please wait...");
     try {
       // POST request to trigger report generation on the backend
-      const response = await axios.post("http://localhost:5000/generate-report");
-      console.log(response.data.status); // Log success message
-      
-      // Navigate to the report page only after successful generation
-      navigate("/interview-report");
+      const response = await axios.post("http://localhost:5000/generate-report", {}, { withCredentials: true });
+      console.log(response.data.status);
+
+      setMessage("Report generated successfully! Redirecting...");
+      setTimeout(() => navigate("/interview-report"), 1500);
     } catch (err) {
       console.error("Error generating report:", err);
-      alert("Failed to generate report. Please try again.");
+      setMessage("Failed to generate report. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,7 +84,12 @@ function InterviewResults() {
         </tbody>
       </table>
 
-      <button onClick={generateReport}>Generate Soft Skill Report</button>
+      <button onClick={generateReport} disabled={loading} className="btn">
+        {loading ? "Processing..." : "Generate Soft Skill Report"}
+      </button>
+
+      {message && <p style={{ marginTop: "10px", fontWeight: "500" }}>{message}</p>}
+
       <button onClick={() => navigate("/interview-dashboard")} className="btn">
         Back to Interview Dashboard
       </button>
