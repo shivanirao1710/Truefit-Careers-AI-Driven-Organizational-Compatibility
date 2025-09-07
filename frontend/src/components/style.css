@@ -38,6 +38,7 @@ button {
 
 .nav-logo {
   height: 40px;
+  width: 90px;
 }
 
 .nav-links {
@@ -420,7 +421,7 @@ button {
 }
 
 .section-img img {
-  width: 90%;
+  width: 100%;
   max-width: 400px;
   height: auto;
   border-radius: 12px;
