@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import logo from "./logo.png";
-import homeimg from "./homeimg.png";
+import logo from "./logotc.jpg";
+import homeimg from "./homeimg.jpg";
+import resume from "./resumetc.jpg";
 import "./style.css";
 
 function Home() {
@@ -114,7 +115,6 @@ function Home() {
     <div className="agents-center">
       <div className="center-node">
         <img src={logo} alt="Career Hub" />
-        <h3>TrueFit Careers</h3>
         <p>Your AI Career Guide</p>
       </div>
     </div>
@@ -162,7 +162,7 @@ function Home() {
       </button>
     </div>
     <div className="section-img">
-      <img src={homeimg} alt="Resume Analyzer" />
+      <img src={resume} alt="Resume Analyzer" />
     </div>
   </div>
 </section>
