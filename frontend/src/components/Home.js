@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import logo from "./logotc.jpg";
-import homeimg from "./homeimg.jpg";
+import homeimg from "./homeimg.png";
 import resume from "./resumetc.jpg";
-import bigfive from "./bigfivetc.png"
+import bigfive from "./bigfivetc.png";
+import interview from "./interviewtc.jpg";
+import chatbot from "./chatbottc.png";
 import "./Home.css";
 
 function Home() {
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const aboutRef = useRef(null);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/home")
-      .then((res) => setMessage(res.data.message))
       .catch(() => navigate("/")); // Redirect to login if unauthorized
   }, [navigate]);
 
@@ -25,7 +25,6 @@ function Home() {
     <div className="home-container">
       {/* Navbar */}
       
-<div className="welcome-message">{message}</div>
       {/* Hero Section */}
       <section className="hero">
         
@@ -84,14 +83,14 @@ function Home() {
     {/* Left side agents */}
     <div className="agents-left">
       <div className="agent">
-        <img src={homeimg} alt="Mock AI Interview" />
+        <img src={interview} alt="Mock AI Interview" />
         <div>
           <h4>Mock AI Interview</h4>
           <p>Practice interviews with AI</p>
         </div>
       </div>
       <div className="agent">
-        <img src={homeimg} alt="Big Five Personality Test" />
+        <img src={bigfive} alt="Big Five Personality Test" />
         <div>
           <h4>Big Five Test</h4>
           <p>Discover your personality traits</p>
@@ -110,14 +109,14 @@ function Home() {
     {/* Right side agents */}
     <div className="agents-right">
       <div className="agent">
-        <img src={homeimg} alt="Resume Analyzer" />
+        <img src={resume} alt="Resume Analyzer" />
         <div>
           <h4>Resume Analyzer</h4>
           <p>Highlight strengths & skills</p>
         </div>
       </div>
       <div className="agent">
-        <img src={homeimg} alt="AI Chatbot" />
+        <img src={chatbot} alt="AI Chatbot" />
         <div>
           <h4>AI Chatbot</h4>
           <p>Ask career-related questions</p>
@@ -176,7 +175,7 @@ function Home() {
       </button>
     </div>
     <div className="section-img">
-      <img src={homeimg} alt="AI Chatbot" />
+      <img src={chatbot} alt="AI Chatbot" />
     </div>
   </div>
 </section>
@@ -226,7 +225,7 @@ function Home() {
       </button>
     </div>
     <div className="section-img">
-      <img src={homeimg} alt="Mock AI Interview" />
+      <img src={interview} alt="Mock AI Interview" />
     </div>
   </div>
 </section>

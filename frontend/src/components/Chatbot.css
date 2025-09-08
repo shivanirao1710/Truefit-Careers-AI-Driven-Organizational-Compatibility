@@ -6,38 +6,6 @@ body {
     margin: 0;
 }
 
-/* Header/Navbar Styling */
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #1f3a93; /* Deep blue for the navbar */
-    color: #fff;
-    border-bottom: 3px solid #ff6f61; /* Bright orange accent */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.logo a {
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    text-decoration: none;
-}
-
-.nav-links a {
-    color: #c9e6ff; /* Lighter shade for nav links */
-    text-decoration: none;
-    font-weight: 500;
-    margin-left: 25px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #fff;
-}
 
 /* Chatbot container and main styles */
 .chatbot-container {

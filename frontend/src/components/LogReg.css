@@ -1,22 +1,41 @@
+/* General Reset & Font */
 body {
   margin: 0;
+  padding: 0;
   font-family: "Inter", "Segoe UI", sans-serif;
   background: #ffffff;
   color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-/* 🔹 Login & Register Pages */
+/* 🔹 Logo Styling */
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 250px;
+  height: 90px;
+  object-fit: contain;
+}
+
+/* 🔹 Login Container */
 .lr-container {
   max-width: 400px;
-  width: 100%;
+  width: 380px;
   background: #ffffff;
   padding: 40px 30px;
-  margin: 60px auto;
   border-radius: 16px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
+/* 🔹 Heading */
 .lr-container h2 {
   font-size: 1.8rem;
   font-weight: 600;
@@ -24,15 +43,18 @@ body {
   margin-bottom: 25px;
 }
 
+/* 🔹 Form */
 .lr-container form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
 }
 
-/* Inputs */
+/* 🔹 Inputs */
 .lr-container input {
   width: 100%;
+  max-width: 340px;
   padding: 12px 14px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -46,14 +68,18 @@ body {
   box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
 }
 
-/* Buttons */
+/* 🔹 Button */
 .lr-container button {
+  width: 100%;
+  max-width: 340px;
   padding: 12px;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 10px;
   background: #007bff;
   color: #fff;
+  border: none;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
 
@@ -61,7 +87,7 @@ body {
   background: #0056b3;
 }
 
-/* Text & Links */
+/* 🔹 Text & Links */
 .lr-container p {
   margin-top: 18px;
   font-size: 0.95rem;
@@ -78,16 +104,4 @@ body {
 .lr-container a:hover {
   color: #0056b3;
   text-decoration: underline;
-}
-
-
-.logo-container {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.logo {
-  width: 250px; /* adjust size as you like */
-  height: 90px;
 }
