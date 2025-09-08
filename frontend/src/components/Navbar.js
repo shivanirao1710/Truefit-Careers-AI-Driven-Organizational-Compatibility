@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "./logotc.jpg"; // adjust path if needed
+import './Navbar.css';
 
 function Navbar({ scrollToAbout, handleLogout }) {
   const navigate = useNavigate();

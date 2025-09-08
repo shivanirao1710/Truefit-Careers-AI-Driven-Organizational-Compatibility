@@ -1,0 +1,450 @@
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: #ffffff;
+  color: #222;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.welcome-message { text-align: center; 
+ font-size: 1.2rem; /* adjust size as needed */ 
+ font-weight: 500; 
+ color: #333; 
+ margin: 20px 0; /* spacing above and below */ }
+
+ 
+/* Section Layout */
+/* Section base */
+.section {
+  padding: 60px 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fdfdfd;
+}
+
+.section.alt {
+  background: #f5f7fa; /* subtle alternate bg */
+}
+
+/* Flex container */
+.section-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Reverse layout (swap order) */
+.section-inner.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Text area */
+.section-text {
+  flex: 1;
+}
+
+.section-text h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.section-text p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #444;
+  line-height: 1.6;
+}
+
+
+/* Image area */
+.section-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.section-img img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.section-img img:hover {
+  transform: scale(1.05);
+}
+
+/* Buttons */
+.primary-btn,
+.secondary-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+.primary-btn {
+  background: #007bff;
+  color: #fff;
+}
+
+.primary-btn:hover {
+  background: #0056b3;
+}
+
+.secondary-btn {
+  background: #b0d3f5;
+  color: #333;
+}
+
+.secondary-btn:hover {
+  background: #ddd;
+}
+
+/* Remove default bullets */
+.messages {
+  margin: 15px 0;
+  padding: 0;
+  list-style: none;  /* ✅ ensures no default bullets */
+}
+
+/* Custom styled list */
+.messages li {
+  position: relative;
+  margin: 10px 0;
+  padding-left: 28px; /* space for the tick */
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Custom tick */
+.messages li::before {
+  content: "✔";  /* custom tick */
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.1rem;
+  color: #007bff; /* blue tick */
+}
+
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 60px;
+  background: linear-gradient(90deg, #f9fbfd, #eef6fb);
+}
+
+.hero-text {
+  max-width: 550px;
+}
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.primary-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.primary-btn:hover {
+  background: #0056b3;
+}
+
+.hero-img img {
+  max-height: 280px;
+}
+
+
+/* About Section */
+
+.about-section {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #fff;
+  color: #333;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-style: italic;
+  color: #0d0d0d;
+  margin-bottom: 10px;
+}
+
+
+
+.about-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 20px auto;
+  color: #666;
+}
+/* Vision Section */
+.vision-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: #fff;
+  color: #444;
+}
+
+.vision-heading {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #007bff; /* blue like in screenshot */
+  margin-bottom: 20px;
+}
+
+.vision-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 750px;
+  margin: 15px auto;
+  color: #666;
+}
+
+.vision-divider {
+  margin: 40px auto;
+  position: relative;
+  width: 2px;
+  height: 60px;
+  background: #ccc;
+}
+
+.vision-divider .dot {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.vision-tagline {
+  font-size: 1.3rem;
+  margin-top: 30px;
+  color: #111;
+}
+
+
+/* Agents Section */
+.agents-section {
+  text-align: center;
+  padding: 50px 20px;
+  background: #fafafa;
+}
+
+.agents-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.agents-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* Container layout */
+.agents-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  position: relative;
+}
+
+/* Left and Right Columns */
+.agents-left, .agents-right {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Each Agent */
+.agent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.agent:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.agent img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.agent h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.agent p {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Center Node */
+/* Center Node */
+.agents-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.center-node {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: white;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.center-node img {
+  width: 110px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.center-node h3 {
+  font-size: 1.2rem;
+  margin: 4px 0;
+}
+
+.center-node p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Connector lines */
+.agents-left .agent::after,
+.agents-right .agent::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 3px;
+  background: #ccc;
+}
+
+.agents-left .agent {
+  position: relative;
+}
+
+.agents-left .agent::after {
+  right: -50px;
+}
+
+.agents-right .agent {
+  position: relative;
+}
+
+.agents-right .agent::after {
+  left: -50px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 25px;
+  background: #f8f9fa;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Section Layout */
+.section {
+  padding: 80px 60px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.section.alt {
+  background: #f8f9fa; /* alternate background for contrast */
+}
+
+.section-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.section p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+
+

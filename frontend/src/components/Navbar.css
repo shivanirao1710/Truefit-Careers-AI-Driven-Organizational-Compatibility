@@ -1,0 +1,41 @@
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 60px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-logo {
+  height: 40px;
+  width: 110px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+.nav-links li {
+  font-weight: 500;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.nav-links li:hover {
+  color: #007bff;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #007bff;
+  color: #fff;
+  font-weight: 500;
+}

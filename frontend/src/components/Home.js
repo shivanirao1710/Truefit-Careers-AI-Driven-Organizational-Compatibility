@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import logo from "./logotc.jpg";
 import homeimg from "./homeimg.jpg";
 import resume from "./resumetc.jpg";
-import "./style.css";
+import bigfive from "./bigfivetc.png"
+import "./Home.css";
 
 function Home() {
   const [message, setMessage] = useState("");
@@ -18,20 +19,7 @@ function Home() {
       .catch(() => navigate("/")); // Redirect to login if unauthorized
   }, [navigate]);
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await axios.post("http://localhost:5000/logout");
-  //     navigate("/");
-  //   } catch (err) {
-  //     console.error("Logout failed:", err);
-  //   }
-  // };
-
-  // const scrollToAbout = () => {
-  //   if (aboutRef.current) {
-  //     aboutRef.current.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
+  
 
   return (
     <div className="home-container">
@@ -212,7 +200,7 @@ function Home() {
       </button>
     </div>
     <div className="section-img">
-      <img src={homeimg} alt="Personality Analyzer" />
+      <img src={bigfive} alt="Personality Analyzer" />
     </div>
   </div>
 </section>

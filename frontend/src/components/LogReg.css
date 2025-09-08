@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: #ffffff;
+  color: #222;
+}
+
+/* 🔹 Login & Register Pages */
+.lr-container {
+  max-width: 400px;
+  width: 100%;
+  background: #ffffff;
+  padding: 40px 30px;
+  margin: 60px auto;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.lr-container h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 25px;
+}
+
+.lr-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Inputs */
+.lr-container input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.lr-container input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+}
+
+/* Buttons */
+.lr-container button {
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  background: #007bff;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.lr-container button:hover {
+  background: #0056b3;
+}
+
+/* Text & Links */
+.lr-container p {
+  margin-top: 18px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.lr-container a {
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.lr-container a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+
+.logo-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  width: 250px; /* adjust size as you like */
+  height: 90px;
+}

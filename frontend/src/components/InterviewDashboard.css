@@ -1,76 +1,56 @@
-/* General Page & Container Styles */
-.interview-page {
+/* Container styling */
+.upload-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f8fafc;
-  padding: 2rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+
+/* Header */
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 30px;
   text-align: center;
 }
 
-.dashboard-card {
-  background-color: #ffffff;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  padding: 3rem;
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-}
-
-/* Header Styles */
-.dashboard-card .header h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #1a202c;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.05em;
-}
-
-.dashboard-card .header p {
-  font-size: 1.125rem;
-  color: #4a5563;
-  margin-bottom: 2rem;
-}
-
-/* Dashboard Button Container */
+/* Dashboard button container */
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 15px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 300px;
 }
 
-/* Button Styles */
-.dashboard-button {
-  background-color: #3b82f6;
-  color: #ffffff;
-  font-size: 1.1rem;
+/* Main buttons */
+.dashboard-container button {
+  padding: 12px 20px;
+  font-size: 1rem;
   font-weight: 600;
-  padding: 1rem 2.5rem;
+  color: #fff;
+  background: #3498db;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-button:hover {
-  background-color: #2563eb;
+.dashboard-container button:hover {
+  background: #2980b9;
   transform: translateY(-2px);
 }
 
-.btn-back {
-  background-color: #e5e7eb;
-  color: #4b5563;
+/* Back button */
+.btn {
+  background-color: #6c757d;
+  color: #fff;
   font-size: 1rem;
   font-weight: 500;
   padding: 0.75rem 2rem;
@@ -81,24 +61,7 @@
   margin-top: 2rem;
 }
 
-.btn-back:hover {
-  background-color: #d1d5db;
+.btn:hover {
+  background-color: #5a6268;
   transform: translateY(-2px);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 640px) {
-  .dashboard-card {
-    padding: 2rem;
-    border-radius: 1rem;
-  }
-
-  .dashboard-card .header h1 {
-    font-size: 2rem;
-  }
-
-  .dashboard-button {
-    font-size: 1rem;
-    padding: 0.75rem 2rem;
-  }
 }

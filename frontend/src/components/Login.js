@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import "./style.css";
+import "./LogReg.css";
+import logo from "./logotc.jpg"; // ✅ import your logo
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -20,28 +21,32 @@ function Login() {
 
   return (
     <div>
-    <h1>Truefit Careers</h1>
-    <div className="lr-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
-      <p>
-        New user? <Link to="/register">Register here</Link>
-      </p>
-    </div>
+      {/* ✅ Replaced text heading with logo */}
+      <div className="logo-container">
+        <img src={logo} alt="Truefit Careers Logo" className="logo" />
+      </div>
+
+      <div className="lr-container">
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Login</button>
+        </form>
+        <p>
+          New user? <Link to="/register">Register here</Link>
+        </p>
+      </div>
     </div>
   );
 }
