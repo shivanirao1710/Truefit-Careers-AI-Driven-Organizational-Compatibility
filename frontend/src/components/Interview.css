@@ -1,0 +1,103 @@
+/* Interview.css */
+
+/* Overall container */
+.interview-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  background-color: #fdfdfd;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1f3a93;
+}
+
+/* Question block */
+.question-block {
+  margin-bottom: 25px;
+}
+
+.question-block p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Textarea styling */
+.question-block textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  font-size: 0.95rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.question-block textarea:focus {
+  outline: none;
+  border-color: #1f3a93;
+  box-shadow: 0 0 5px rgba(31, 58, 147, 0.3);
+}
+
+/* Buttons */
+button[type="submit"],
+button.btn {
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  margin: 10px 5px 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"] {
+  background-color: #1f3a93;
+  color: #fff;
+}
+
+button[type="submit"]:hover {
+  background-color: #162d70;
+}
+
+button.btn {
+  background-color: #8c8c8c;
+  color: #fff;
+}
+
+button.btn:hover {
+  background-color: #7a7a7a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .interview-container {
+    padding: 15px 20px;
+  }
+
+  .header h2 {
+    font-size: 1.5rem;
+  }
+
+  button[type="submit"],
+  button.btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

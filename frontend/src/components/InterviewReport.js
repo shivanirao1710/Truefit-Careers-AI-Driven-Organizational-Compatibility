@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./InterviewReport.css";
 
 function InterviewReport() {
   const [report, setReport] = useState([]);
@@ -13,7 +14,7 @@ function InterviewReport() {
     setLoading(true);
     try {
       const res = await axios.get("http://localhost:5000/interview-report", {
-        withCredentials: true, // ✅ send session cookie
+        withCredentials: true,
       });
       if (res.data && res.data.report) {
         setReport(res.data.report);
@@ -33,15 +34,15 @@ function InterviewReport() {
   }, []);
 
   return (
-    <div className="report-container" style={styles.container}>
-      <h2 style={styles.heading}>Interview Report</h2>
-      {loading && <p>Loading...</p>}
-      {message && <p style={styles.message}>{message}</p>}
+    <div className="report-container">
+      <h2 className="report-heading">Interview Report</h2>
+      {loading && <p className="loading-text">Loading...</p>}
+      {message && <p className="status-message">{message}</p>}
 
-      <div style={styles.reportBox}>
+      <div className="report-box">
         {report.length > 0 ? (
           report.map((item, index) => (
-            <div key={index} style={styles.card}>
+            <div key={index} className="report-card">
               <p>
                 <strong>Q:</strong> {item.question}
               </p>
@@ -54,7 +55,7 @@ function InterviewReport() {
             </div>
           ))
         ) : (
-          !loading && <p>No report available.</p>
+          !loading && <p className="no-report">No report available.</p>
         )}
       </div>
 
@@ -64,23 +65,5 @@ function InterviewReport() {
     </div>
   );
 }
-
-const styles = {
-  container: { padding: "20px", maxWidth: "800px", margin: "0 auto" },
-  heading: { fontSize: "24px", fontWeight: "bold", marginBottom: "20px" },
-  message: { margin: "10px 0", color: "green", fontWeight: "500" },
-  reportBox: {
-    marginTop: "20px",
-    background: "#f9f9f9",
-    padding: "15px",
-    borderRadius: "10px",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-  },
-  card: {
-    borderBottom: "1px solid #ddd",
-    paddingBottom: "10px",
-    marginBottom: "10px",
-  },
-};
 
 export default InterviewReport;

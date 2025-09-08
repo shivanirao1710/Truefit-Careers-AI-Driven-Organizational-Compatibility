@@ -1,0 +1,88 @@
+/* Profile.css */
+
+/* Overall page section */
+.profile-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 80vh;
+  background: #f5f7fa; /* light background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Profile card container */
+.profile-card {
+  width: 100%;
+  max-width: 800px; /* increase from 600px */
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Profile title */
+.profile-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #1f3a93;
+}
+
+/* Profile details */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-details p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.profile-details p span {
+  font-weight: 600;
+  color: #222;
+}
+
+/* Buttons */
+.secondary-btn {
+  display: block;
+    width: fit-content;
+    margin: 30px auto 0;
+    padding: 12px 25px;
+    background-color: #8c8c8c; /* A new gray color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+  background-color: #7a7a7a;
+}
+
+/* Loading and error boxes */
+.loading-box,
+.error-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.error-box {
+  color: #d32f2f; /* red for errors */
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./InterviewResults.css"
 
 function InterviewResults() {
   const [emotions, setEmotions] = useState([]);
@@ -84,11 +85,22 @@ function InterviewResults() {
         </tbody>
       </table>
 
-      <button onClick={generateReport} disabled={loading} className="btn">
-        {loading ? "Processing..." : "Generate Soft Skill Report"}
-      </button>
+      <button 
+  onClick={generateReport} 
+  disabled={loading} 
+  className="btn"
+>
+  Generate Soft Skill Report
+</button>
 
-      {message && <p style={{ marginTop: "10px", fontWeight: "500" }}>{message}</p>}
+{/* 🔹 Show spinner + message outside the button, like ResumeAnalyzer */}
+{loading && (
+  <div className="loading-container">
+    <div className="spinner"></div>
+    <p className="status-message">{message}</p>
+  </div>
+)}
+
 
       <button onClick={() => navigate("/interview-dashboard")} className="btn">
         Back to Interview Dashboard
