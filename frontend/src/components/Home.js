@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "./logotc.jpg";
 import homeimg from "./homeimg.png";
 import resume from "./resumetc.jpg";
-import bigfive from "./bigfivetc.png";
+import bigfive from "./bigfivetc.jpg";
 import interview from "./interviewtc.jpg";
 import chatbot from "./chatbottc.png";
 import "./Home.css";

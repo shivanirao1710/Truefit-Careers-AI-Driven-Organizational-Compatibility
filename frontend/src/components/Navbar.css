@@ -19,6 +19,7 @@
 .nav-left {
   display: flex;
   align-items: center;
+  padding-left: 15px; /* shifts all left content, including logo */
 }
 
 .nav-logo {
